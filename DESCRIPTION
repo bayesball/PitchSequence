@@ -1,0 +1,14 @@
+Package: PitchSequence
+Type: Package
+Title: Pitch Sequence Calculations
+Version: 0.1
+Author: Jim Albert <albert@bgsu.edu>
+Maintainer: Jim Albert <albert@bgsu.edu>
+Depends:  ggplot2, dplyr, purrr, CalledStrike
+Suggests: knitr, rmarkdown
+Description: Collection of functions to help in the exploration of pitch sequences.
+URL: https://github.com/bayesball/PitchSequence
+License: GPL (>= 2)
+Packaged:  2020-12-30
+Encoding: UTF-8
+LazyData: true
