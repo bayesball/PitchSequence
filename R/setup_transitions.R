@@ -7,7 +7,8 @@ setup_transitions <- function(d){
   d$pseq <- gsub("[BIPV]", "b", d$pseq)
   d$pseq <- gsub("[CFKLMOQRST]", "s", d$pseq)
 
-  one.string <- function(ex){
+  one.string <- function(j){
+    ex <- d$pseq[j]
     # replace s and b with X for strikeouts and walks
     ex <- gsub("s$", "X", ex)
     ex <- gsub("b$", "X", ex)
@@ -25,10 +26,13 @@ setup_transitions <- function(d){
     # before and after counts
     b_count <- S[1:(length(S) - 1)]
     e_count <- S[-1]
-    data.frame(b_count = b_count,
+    data.frame(BAT_ID = d$BAT_ID[j],
+               PIT_ID = d$PIT_ID[j],
+               b_count = b_count,
          e_count = e_count)
   }
 
-  map_df(d$pseq, one.string)
+  N <- dim(d)[1]
+  map_df(1:N, one.string)
 }
 

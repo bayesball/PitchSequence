@@ -4,7 +4,7 @@ Title: Pitch Sequence Calculations
 Version: 0.1
 Author: Jim Albert <albert@bgsu.edu>
 Maintainer: Jim Albert <albert@bgsu.edu>
-Depends:  ggplot2, dplyr, purrr, CalledStrike
+Depends:  ggplot2, dplyr, purrr, CalledStrike, stringr
 Suggests: knitr, rmarkdown
 Description: Collection of functions to help in the exploration of pitch sequences.
 URL: https://github.com/bayesball/PitchSequence
