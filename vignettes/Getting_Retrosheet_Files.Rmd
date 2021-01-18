@@ -1,0 +1,80 @@
+---
+title: "Downloading Retrosheet Data"
+author: "Jim Albert"
+date: "January 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Here's an outline of how to download the Retrosheet play files for a particular season, and also how to compute the runs values for all plays.
+
+There is a blog posting on this at
+https://baseballwithr.wordpress.com/2014/02/10/downloading-retrosheet-data-and-runs-expectancy/ 
+
+1.  Download the Chadwick files following the advice from the website mentioned on the blog post -- this will parse the original source files.
+
+2.  Set up the current working directory to have a folder called "download.folder".  Inside that folder, place two subfolders "unzipped" and "zipped".  The following system commands will accomplish this.
+
+```{r}
+system("mkdir download.folder")
+setwd("download.folder")
+system("mkdir unzipped")
+system("mkdir zipped")
+setwd("..")
+```
+
+3.  Load the PitchSequence package.
+
+```{r}
+library(PitchSequence)
+```
+
+4.  Use the ```parse.retrosheet2.pbp()``` function to download the Retrosheet play-by-play data for the 2020 season.
+
+```{r}
+parse.retrosheet2.pbp(2020)
+```
+
+Navigate to the download file and check that three files are there. 
+
+```{r}
+setwd("download.folder/unzipped")
+dir()
+```
+
+5.  To compute the runs expectancies, run the second function ```compute.runs.expectancy()```, saving the result in d2020.
+
+```{r}
+d2020 <- compute.runs.expectancy(2020)
+```
+
+6.  Check that you are getting sensible values:
+
+Display the starting state, the new state and the runs value for the first few plays:
+
+```
+library(tidyverse)
+d2020 %>% 
+  select(STATE, NEW.STATE, RUNS.VALUE) %>% 
+  head()
+```
+
+Display the runs expectancies for all states:
+
+```
+d2020 %>% group_by(STATE) %>% 
+  summarize(R = first(RUNS.STATE))
+```
+
+Show the runs values for all possible transitions between states:
+
+```
+d2020 %>% group_by(STATE, NEW.STATE) %>% 
+  summarize(R = first(RUNS.VALUE))
+```
+
+
+
